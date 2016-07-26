@@ -5,7 +5,7 @@ This guide takes you through the installation of Harbor using an offline install
 ##Prerequisites
 The installer contains a script used to install docker which only works on Ubuntu 14.04, so if you want to install Harbor on other Linux distribution, please install docker(1.10.0+) by yourself first.  
 
-Linux Distribution | Docker | Support
+Linux Distribution | Docker | Supported
 ------------ | ------------- | -------------
 Ubuntu 14.04 |  Not Required | Yes
 Other Linux Distribution |  Docker(1.10.0+) Required | Yes
@@ -26,8 +26,21 @@ Replace 192.168.0.2 with your IP address or hostname which is used to access adm
 **Notes:**At the very least, you will just need provide the -h(--host) option to run the installer. If you need more configuretions, you can edit the harbor.cfg under directory harbor/Deploy. If you have configured the hostname attribute in the harbor.cfg, the -h(--host) option is not necessary. About more details, please see the [installation guide](https://github.com/vmware/harbor/blob/master/docs/installation_guide.md).  
 
 ## Load prepared image
+You can download the prepared busybox image and load it to Harbor for testing or demonstrating.  
 1.Download the [busybox image](https://bintray.com/harbor/generic/download_file?file_path=busybox.tar).  
-2.Load it to Harbor:
+2.Load it to docker:
 ```sh
 docker load -i busybox.tar 
+```
+3.Tag it:
+```
+docker tag busybox 192.168.0.2/libray/busybox
+```
+4.Login with docker(default usr/pwd: admin/Harbor12345):
+```
+docker login 192.168.0.2
+```
+5.Push image to Harbor:
+```
+docker push 192.168.0.2/libray/busybox
 ```
