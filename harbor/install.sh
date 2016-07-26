@@ -58,6 +58,9 @@ echo "[Step 6]: start Harbor"
 echo "starting..."
 docker-compose up -d
 
+protocal=http
+hostname=reg.mydomain.com
+
 if [[ $(cat ./harbor.cfg) =~ ui_url_protocol[[:blank:]]*=[[:blank:]]*(https?) ]]
 then
 protocol=${BASH_REMATCH[1]}
