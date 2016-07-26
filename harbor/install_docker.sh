@@ -7,7 +7,8 @@ function docker_install {
 	
 	if [ $OS_distributor_ID != Ubuntu ] || [ $OS_release_number != 14.04 ]
 	then		
-	    echo "The docker installer embeded in this script only works on Ubuntu:14.04, and your OS is [$OS_distributor_ID:$OS_release_number]. You can install docker(1.10.0+) by yourself and run this script again"
+	    echo "The docker installer embeded in this script only works on Ubuntu:14.04, and your OS is [$OS_distributor_ID:$OS_release_number]. You can install docker(1.10.0+) by yourself first and run this script again"
+		exit 1
 	fi
 	
 	dpkg -i $docker_dir/docker-1.11.2-trusty/cgroup-lite_1.9_all.deb
