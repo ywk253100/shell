@@ -27,6 +27,7 @@ Replace 192.168.0.2 with your IP address or hostname which is used to access adm
 
 ## Load prepared image
 You can download the prepared busybox image and load it to Harbor for testing or demonstrating.  
+
 1.Download the [busybox image](https://bintray.com/harbor/generic/download_file?file_path=busybox.tar).  
 2.Load it to docker:
 ```sh
@@ -34,7 +35,7 @@ docker load -i busybox.tar
 ```
 3.Tag it:
 ```
-docker tag busybox 192.168.0.2/libray/busybox
+docker tag busybox 192.168.0.2/library/busybox
 ```
 4.Login with docker(default usr/pwd: admin/Harbor12345):
 ```
@@ -42,5 +43,5 @@ docker login 192.168.0.2
 ```
 5.Push image to Harbor:
 ```
-docker push 192.168.0.2/libray/busybox
+docker push 192.168.0.2/library/busybox
 ```
