@@ -11,13 +11,13 @@ Other Linux Distribution |  Docker(1.10.0+) Required | Yes
 ## Install Harbor
 1. Download the [harbor-0.3.0-installer.tar](http://bintray.com/xxx/xxx.tar).
 2. Decompress it:
-	```sh
-	tar -xvf harbor-0.3.0-installer.tar
-	```  
+    ```sh
+    tar -xvf harbor-0.3.0-installer.tar
+    ```  
 3. Run the installer:
-	```sh
-	harbor/install.sh -h 192.168.0.2
-	```
+    ```sh
+    harbor/install.sh -h 192.168.0.2
+    ```
 
 Replace 192.168.0.2 with your IP address or hostname which is used to access admin UI and registry service. DO NOT use localhost or 127.0.0.1, because Harbor needs to be accessed by external clients.
 
@@ -28,6 +28,6 @@ Notes:
 ## Load prepared image
 1. Download the [busybox image](https://bintray.com/harbor/generic/download_file?file_path=busybox.tar).
 2. Load it to Harbor:
-	```sh
-	docker load -i busybox.tar 
-	```
+    ```sh
+    docker load -i busybox.tar 
+    ```
