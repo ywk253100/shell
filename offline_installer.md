@@ -23,8 +23,7 @@ harbor/install.sh -h 192.168.0.2
 
 Replace 192.168.0.2 with your IP address or hostname which is used to access admin UI and registry service. DO NOT use localhost or 127.0.0.1, because Harbor needs to be accessed by external clients.
 
-Notes:  
-At the very least, you will just need provide the -h(--host) option to run the installer. If you need more configuretions, you can edit the harbor.cfg under directory harbor/Deploy. If you have configured the hostname attribute in the harbor.cfg, the -h(--host) option is not necessary. About more details, please see the [installation guide](https://github.com/vmware/harbor/blob/master/docs/installation_guide.md).  
+**Notes:**At the very least, you will just need provide the -h(--host) option to run the installer. If you need more configuretions, you can edit the harbor.cfg under directory harbor/Deploy. If you have configured the hostname attribute in the harbor.cfg, the -h(--host) option is not necessary. About more details, please see the [installation guide](https://github.com/vmware/harbor/blob/master/docs/installation_guide.md).  
 
 ## Load prepared image
 1.Download the [busybox image](https://bintray.com/harbor/generic/download_file?file_path=busybox.tar).  
