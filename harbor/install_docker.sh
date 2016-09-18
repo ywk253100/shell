@@ -2,12 +2,16 @@
 
 function docker_install {
 	docker_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-	OS_distributor_ID=$(lsb_release -is)
-	OS_release_number=$(lsb_release -rs)
 	
-	if [ $OS_distributor_ID != Ubuntu ] || [ $OS_release_number != 14.04 ]
+	if [ -f /etc/lsb-release ]
+	then
+	    OS_distributor_ID=$(lsb_release -is)
+		OS_release_number=$(lsb_release -rs)
+	fi
+	
+	if [ "$OS_distributor_ID" != Ubuntu ] || [ "$OS_release_number" != 14.04 ]
 	then		
-	    echo "The docker installer embeded in this script only works on Ubuntu:14.04, and your OS is [$OS_distributor_ID:$OS_release_number]. You can install docker(1.10.0+) by yourself first and run this script again"
+	    echo "The docker installer embeded in this script only works on Ubuntu:14.04. You can install docker(1.10.0+) by yourself first and run this script again."
 		exit 1
 	fi
 	
@@ -37,7 +41,7 @@ then
 	docker_version_part2=${BASH_REMATCH[3]}
 	
 	# the version of docker does not meet the requirement
-	if [ $docker_version_part1 -lt 1 ] || ([ $docker_version_part1 -eq 1 ] && [ $docker_version_part2 -lt 10 ])
+	if [ "$docker_version_part1" -lt 1 ] || ([ "$docker_version_part1" -eq 1 ] && [ "$docker_version_part2" -lt 10 ])
 	then
 		while true; do
     		read -p "The version of docker installed [$docker_version] does not meet the requirement[1.10.0+]. Would you want to upgrade it?[y/n]" yn

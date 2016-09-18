@@ -24,7 +24,7 @@ then
 	docker_compose_version_part2=${BASH_REMATCH[3]}
 	
 	# the version of docker-compose does not meet the requirement
-	if [ $docker_compose_version_part1 -lt 1 ] || ([ $docker_compose_version_part1 -eq 1 ] && [ $docker_compose_version_part2 -lt 6 ])
+	if [ "$docker_compose_version_part1" -lt 1 ] || ([ "$docker_compose_version_part1" -eq 1 ] && [ "$docker_compose_version_part2" -lt 6 ])
 	then
 		while true; do
     		read -p "The version of docker-compose installed [$docker_compose_version] does not meet the requirement[1.6.0+]. Would you want to upgrade it?[y/n]" yn
