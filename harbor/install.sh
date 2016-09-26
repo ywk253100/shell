@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #docker version: 1.11.2 
 #docker-compose version: 1.7.1 

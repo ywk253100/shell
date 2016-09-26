@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 function docker_install {
 	docker_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
