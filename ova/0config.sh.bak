@@ -1,0 +1,49 @@
+#!/bin/bash
+export PATH=$PATH:/usr/local/bin
+configure_install() {
+  set -e
+  sed -i s/"hostname = .*"/"hostname = $1"/ /root/harbor/harbor.cfg
+  ./start.sh
+}
+
+echo "======================= $(date)====================="
+if [ ! -d /root/harbor ] 
+then 
+  echo "Can not harbor installer, fail"
+  exit 1
+fi
+newip=$(ip addr show eth0|grep "inet "|tr -s ' '|cut -d ' ' -f 3|cut -d '/' -f 1)
+if [ ${#newip} -eq 0 ]
+then
+  echo "Failed to get the IP address"
+  exit 1
+fi 
+
+cd /root/harbor
+echo "Shutting down Harbor..."
+docker-compose down
+
+if [ -f "/root/ip_addr" ] 
+then
+  #source /root/ip_addr
+  ip=$(cut /root/ip_addr -d= -f2)
+  if [ $ip != $newip ]
+  then
+    echo "The IP has changed, need to re-configure harbor"
+    configure_install $newip
+  else 
+    echo "The IP has not changed, no need to reconfigure, starting Harbor"
+    docker-compose up -d
+  fi
+else
+  echo "Configuring Harbor"
+  configure_install $newip    
+fi
+
+if [ $? -eq 0 ]
+then
+  echo "ip=$newip" > /root/ip_addr
+else
+  echo "Failed to install and start Harbor"
+fi
+echo "===================================================="
