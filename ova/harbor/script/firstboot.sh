@@ -3,16 +3,36 @@ set -e
 
 echo "======================= $(date)====================="
 
-base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
+export PATH=$PATH:/usr/local/bin
 
-#Install docker-compose
-$base_dir/deps/docker-compose-1.7.1/install.sh
+#Reset root password 
+value=$(ovfenv -k root_pwd)
+if [ -n "$value" ]
+then
+	echo "Resetting root password..."
+	printf "$value\n$value\n" | passwd root
+else
+	echo "User doesn't set root password, skip resetting"
+fi
 
+echo "Adding rules to iptables..."
+addIptableRules
+
+echo "Installing docker compose..."
+installDockerCompose
+
+echo "Starting docker service..."
 systemctl start docker
 
-#Load images of Harbor
-$base_dir/harbor/load.sh
+echo "Loading images..."
+load
 
-$base_dir/script/subsequentboot.sh
+#Configure Harbor
+echo "Configuring Harbor..."
+configure
+
+#Start Harbor
+echo "Starting Harbor..."
+up
 
 echo "===================================================="

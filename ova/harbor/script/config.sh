@@ -22,7 +22,7 @@ fi
 for attr in "${attrs[@]}"
 do
 	value=$(ovfenv -k $attr)
-	echo "Read attribute using ofvenv: [ $attr - $value ]"
+	echo "Read attribute using ovfenv: [ $attr - $value ]"
 	if [ -n "$value" ]
 	then
 		sed -i -r s%"#?$attr = .*"%"$attr = $value"% $cfg

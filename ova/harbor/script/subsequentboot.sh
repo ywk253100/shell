@@ -4,19 +4,29 @@ echo "======================= $(date)====================="
 
 export PATH=$PATH:/usr/local/bin
 
-#iptables -A INPUT -p tcp --dport 5480 -j ACCEPT
+#Add rules to iptables
+addIptableRules
 
-base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
-
-#Shut down Harbor
+#Stop Harbor
 echo "Shutting down Harbor..."
-docker-compose -f $base_dir/harbor/docker-compose.yml down
+down
 
-#Collect attrs and modify harbor.cfg
+#Garbage collection
+value=$(ovfenv -k gc_enabled)
+if [ "$value"="true" ]
+then
+	echo "GC enabled, starting garbage collection..."
+	gc harbor_registry_1 registry:2.5.0 /etc/registry/config.yml	
+else
+	echo "GC disabled, skip garbage collection"
+fi
+
+#Configure Harbor
 echo "Configuring Harbor..."
-$base_dir/script/config.sh
+configure
 
 #Start Harbor
-$base_dir/harbor/start.sh
+echo "Starting Harbor..."
+up
 
 echo "===================================================="
