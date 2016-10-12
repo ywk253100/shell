@@ -5,6 +5,9 @@ echo "======================= $(date)====================="
 
 export PATH=$PATH:/usr/local/bin
 
+base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $base_dir/common.sh
+
 #Reset root password 
 value=$(ovfenv -k root_pwd)
 if [ -n "$value" ]

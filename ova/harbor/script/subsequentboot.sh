@@ -4,6 +4,9 @@ echo "======================= $(date)====================="
 
 export PATH=$PATH:/usr/local/bin
 
+base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $base_dir/common.sh
+
 #Add rules to iptables
 addIptableRules
 
@@ -16,7 +19,9 @@ value=$(ovfenv -k gc_enabled)
 if [ "$value"="true" ]
 then
 	echo "GC enabled, starting garbage collection..."
-	gc harbor_registry_1 registry:2.5.0 /etc/registry/config.yml	
+	#If the registry contains no images, the gc will fail.
+	#So append a true to avoid failure.
+	gc registry:2.5.0 || true
 else
 	echo "GC disabled, skip garbage collection"
 fi
