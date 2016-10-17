@@ -14,12 +14,10 @@ if [ -n "$value" ]
 then
 	echo "Resetting root password..."
 	printf "$value\n$value\n" | passwd root
-else
-	echo "User doesn't set root password, skip resetting"
 fi
 
-echo "Adding rules to iptables..."
-addIptableRules
+#echo "Adding rules to iptables..."
+#addIptableRules
 
 echo "Installing docker compose..."
 installDockerCompose
@@ -32,6 +30,7 @@ load
 
 #Configure Harbor
 echo "Configuring Harbor..."
+chmod 600 $base_dir/../harbor/harbor.cfg
 configure
 
 #Start Harbor

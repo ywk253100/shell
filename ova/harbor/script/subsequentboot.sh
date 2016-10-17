@@ -7,8 +7,8 @@ export PATH=$PATH:/usr/local/bin
 base_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $base_dir/common.sh
 
-#Add rules to iptables
-addIptableRules
+#echo "Adding rules to iptables..."
+#addIptableRules
 
 #Stop Harbor
 echo "Shutting down Harbor..."
@@ -16,7 +16,7 @@ down
 
 #Garbage collection
 value=$(ovfenv -k gc_enabled)
-if [ "$value"="true" ]
+if [ "$value" = "true" ]
 then
 	echo "GC enabled, starting garbage collection..."
 	#If the registry contains no images, the gc will fail.
